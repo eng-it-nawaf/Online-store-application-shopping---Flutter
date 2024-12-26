@@ -1,0 +1,53 @@
+name: shoppe_ui
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons:
+  provider:  # For state management
+  font_awesome_flutter:  # For icons (optional)
+  fluttertoast:  # For showing toasts (optional)
+  image_picker:
+  intl_phone_number_input:
+  flutter_svg:
+
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/user_avatar.png
+    - assets/images/bubble 02 (1).png
+    - assets/images/bubble 02.png
+    - assets/images/bubble 01.png
+    - assets/images/Login1.png
+    - assets/images/Login4.png
+    - assets/images/Login2.png
+    - assets/images/Login3.png
+    - assets/images/image.png
+
