@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shoppe_ui/core/constants/colors.dart';
 
 class AppStyles {
-  // تنسيق زر Done
   static ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
     backgroundColor: AppColors.primary,
     shape: RoundedRectangleBorder(

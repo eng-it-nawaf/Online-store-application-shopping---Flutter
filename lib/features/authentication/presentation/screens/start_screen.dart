@@ -8,7 +8,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: backgroundColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

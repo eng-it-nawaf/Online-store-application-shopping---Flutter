@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppe_ui/core/widgets/login_background_top.dart';
 import 'package:shoppe_ui/core/widgets/user_avatar_widget.dart';
+import 'package:shoppe_ui/core/constants/colors.dart';
 
 class WrongPasswordScreen extends StatelessWidget {
   const WrongPasswordScreen({Key? key}) : super(key: key);
@@ -8,6 +9,7 @@ class WrongPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           const LoginBackgroundTop(),
@@ -18,7 +20,6 @@ class WrongPasswordScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const UserAvatarWidget(userName: 'Romina'),
-
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +48,7 @@ class WrongPasswordScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         decoration: TextDecoration.underline,
-                        fontSize: 15,
+                        fontSize: 18,
                       ),
                     ),
                   ),

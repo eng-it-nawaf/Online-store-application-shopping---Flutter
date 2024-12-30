@@ -15,7 +15,7 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -106,7 +106,7 @@ class CreateAccountScreen extends StatelessWidget {
                       child: CustomButton(
                         text: 'Done', // النص الخاص بالزر
                         onPressed: () {
-                          Navigator.pushNamed(context, '/nextScreen');
+                          Navigator.pushNamed(context, '/login');
                         },
                       ),
                     ),

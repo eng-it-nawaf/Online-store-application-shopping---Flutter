@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shoppe_ui/core/widgets/login_background_top.dart'; // Background widget
-import 'package:shoppe_ui/core/widgets/user_avatar_widget.dart'; // User avatar widget
-
+import 'package:shoppe_ui/core/widgets/login_background_top.dart';
+import 'package:shoppe_ui/core/widgets/user_avatar_widget.dart';
+import 'package:shoppe_ui/core/constants/colors.dart';
 
 class PasswordTyping extends StatelessWidget {
   const PasswordTyping({Key? key}) : super(key: key);
@@ -9,9 +9,9 @@ class PasswordTyping extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,  // استخدام اللون المستورد من ملف الألوان
       body: Stack(
         children: [
-          // Background widget
           const LoginBackgroundTop(),
           SafeArea(
             child: Padding(
@@ -20,12 +20,8 @@ class PasswordTyping extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // User avatar widget with required parameters
                   const UserAvatarWidget(userName: 'Romina'),
                   const SizedBox(height: 10),
-                  // Instruction text
-                  const SizedBox(height: 10),
-                  // Password indicator circles
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
