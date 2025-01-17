@@ -1,4 +1,3 @@
-// features/Product/presentation/Widget/DiscountBanner.dart
 import 'package:flutter/material.dart';
 
 class DiscountBanner extends StatelessWidget {
