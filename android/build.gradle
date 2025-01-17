@@ -1,18 +1,50 @@
-allprojects {
+//allprojects {
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
+//
+//rootProject.buildDir = "../build"
+//subprojects {
+//    project.buildDir = "${rootProject.buildDir}/${project.name}"
+//}
+//subprojects {
+//    project.evaluationDependsOn(":app")
+//}
+//
+//tasks.register("clean", Delete) {
+//    delete rootProject.buildDir
+//}
+
+buildscript {
     repositories {
-        google()
-        mavenCentral()
+        google()  // مستودع Google لتتبع التبعيات
+        mavenCentral()  // مستودع Maven المركزي
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'  // إصدار Android Gradle Plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"  // إضافة Kotlin إذا كنت تستخدمه
     }
 }
 
-rootProject.buildDir = "../build"
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+allprojects {
+    repositories {
+        google()  // مستودع Google لتتبع التبعيات
+        mavenCentral()  // مستودع Maven المركزي
+    }
 }
+
+rootProject.buildDir = "../build"  // تحديد مجلد البناء الرئيسي
+
 subprojects {
-    project.evaluationDependsOn(":app")
+    project.buildDir = "${rootProject.buildDir}/${project.name}"  // تحديد مجلد البناء لكل مشروع فرعي
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")  // جعل المشاريع الفرعية تعتمد على تطبيق ":app"
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.buildDir  // مهمة لتنظيف مجلد البناء
 }

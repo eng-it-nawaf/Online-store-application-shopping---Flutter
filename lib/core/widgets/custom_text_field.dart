@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final double borderRadius;
   final bool showBorder;
+  final ValueChanged<String>? onChanged; // Added onChanged
 
   const CustomTextField({
     required this.hintText,
@@ -16,6 +17,7 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.borderRadius = 20.0,
     this.showBorder = true,
+    this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -37,9 +39,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         obscureText: widget.isPassword ? _obscureText : false,
         keyboardType: widget.keyboardType,
+        onChanged: widget.onChanged, // Added onChanged callback
         decoration: InputDecoration(
           hintText: widget.hintText,
-          border: InputBorder.none,
+          border: widget.showBorder ? OutlineInputBorder() : InputBorder.none,
           filled: true,
           fillColor: Colors.grey[200],
           contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
@@ -62,10 +65,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 }
 
+
 class CustomPhoneNumberInput extends StatelessWidget {
   final TextEditingController controller;
   final PhoneNumber initialNumber;
-  final Function(PhoneNumber) onChanged;
+  final ValueChanged<PhoneNumber> onChanged; // Type-safe function parameter
 
   const CustomPhoneNumberInput({
     required this.controller,

@@ -9,6 +9,8 @@ class AppColors {
   static const Color error = Color(0xFFFF0000);
   static const Color cancel = Color(0xFF363636);
   static const Color iconBlue = Color(0xFF004CFD);
+  static const Color backgroundColor = Color(0xFFFDFDFD); // Define background color here
+
 }
 
   const Color backgroundColor = Colors.white;

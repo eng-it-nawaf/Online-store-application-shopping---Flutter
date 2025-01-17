@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shoppe_ui/features/authentication/presentation/screens/password_typing_screen.dart';
-import 'features/authentication/presentation/screens/start_screen.dart';
-import 'features/authentication/presentation/screens/create_account_screen.dart';
-import 'features/authentication/presentation/screens/login_screen.dart';
-import 'features/authentication/presentation/screens/password_screen.dart';
-import 'features/authentication/presentation/screens/wrong_password_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppe_ui/features/start/presintation/manager/start_bloc.dart'; // Add the correct import
+import 'routes/app_routes.dart';  // Assuming this file contains the routes logic
+import 'injection_container.dart' as object;
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized(); // تأكد من التهيئة هنا
+  await object.init();
   runApp(const MyApp());
 }
 
@@ -15,19 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shoppe',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const StartScreen(),
-        '/createAccount': (context) => CreateAccountScreen(),
-        '/login': (context) => LoginScreen(),
-        '/password': (context) => PasswordScreen(),
-        '/passTyping': (context) => PasswordTyping(),
-        '/wrongPassword': (context) => WrongPasswordScreen(),
-      },
+    return BlocProvider(
+      create: (context) => StartBloc(), // Provide StartBloc globally
+      child: MaterialApp(
+        title: 'Shoppe',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.start, // Use the AppRoutes class for better management
+        onGenerateRoute: AppRoutes.generateRoute, // Use AppRoutes to generate routes
+      ),
     );
   }
 }

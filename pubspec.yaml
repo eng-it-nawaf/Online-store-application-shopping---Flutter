@@ -1,43 +1,50 @@
 name: shoppe_ui
 description: "A new Flutter project."
 
-publish_to: 'none'
+publish_to: 'none' # Prevents accidental publication
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
 
-
-
 dependencies:
   flutter:
     sdk: flutter
-
-  cupertino_icons:
-  provider:  # For state management
-  font_awesome_flutter:  # For icons (optional)
-  fluttertoast:  # For showing toasts (optional)
+  provider:
+  bloc:
+  flutter_bloc:
+  font_awesome_flutter:
+  fluttertoast:
   image_picker:
   intl_phone_number_input:
+  sliding_clipped_nav_bar:
   flutter_svg:
+  cupertino_icons:
+  shared_preferences:
+  wave:
+  http:
+  dartz:
+  get_it:
+  equatable:
+  internet_connection_checker_plus:
+  connectivity_plus:
+  convex_bottom_bar:
 
-
-
-
-
+flutter_svg: ^2.0.4 # For SVG image support
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_launcher_icons:
+  flutter_lints:
 
-
-
+flutter_icons:
+  android: true
+  ios: false  # إذا كنت لا تحتاج لدعم iOS على Windows
+  image_path: "assets/app_icon/app_icon.png"  # مسار الأيقونة
 
 flutter:
-
-
   uses-material-design: true
 
   assets:
@@ -50,4 +57,5 @@ flutter:
     - assets/images/Login2.png
     - assets/images/Login3.png
     - assets/images/image.png
+
 
