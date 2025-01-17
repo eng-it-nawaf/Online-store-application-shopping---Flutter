@@ -1,4 +1,3 @@
-// features/Product/presentation/Widget/CategoryList.dart
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatelessWidget {
