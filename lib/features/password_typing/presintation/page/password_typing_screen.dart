@@ -1,14 +1,12 @@
-// lib/features/password/screens/password_typing_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppe_ui/core/widgets/login_background_top.dart';
 import 'package:shoppe_ui/core/widgets/user_avatar_widget.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';
 import '../manager/password_bloc.dart';
 import '../manager/password_event.dart';
 import '../manager/password_state.dart';
+import 'package:shoppe_ui/core/AppTheme.dart';
 
-// lib/features/password/screens/password_typing_screen.dart
 
 class PasswordTyping extends StatelessWidget {
   const PasswordTyping({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class PasswordTyping extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: AppTheme.background,
       body: BlocProvider(
         create: (context) => PasswordBloc(),
         child: Stack(
@@ -52,8 +50,8 @@ class PasswordTyping extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: index < passwordLength
-                                        ? Colors.blue
-                                        : Colors.grey.shade300,
+                                        ? AppTheme.priceColor
+                                        : AppTheme.background,
                                   ),
                                 ),
                               );

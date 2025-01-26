@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
+
 class AppTheme {
+
+
   ///colors
-  static const Color primaryColor = Color(0xFF051756);
   static const Color priceColor = Color.fromRGBO(96, 85, 216, 1);
   static const Color textColor = Color.fromRGBO(0, 0, 0, 1);
   static const Color starColor = Color(0xFFFAB70F);
+  static const Color primary = Color(0xFF007AFF);
+  static const Color background = Colors.white;
+  static const Color textSecondary = Colors.grey;
+  static const Color error = Color(0xFFFF0000);
+  static const Color cancel = Color.fromRGBO(32, 31, 40, 1);
+  static const Color iconBlue = Color(0xFF004CFD);
+  static const Color primaryColor = Color(0xFF6200EE);
+
+
 
   static MaterialColor primarySwatch = MaterialColor(Color(0xFFDC6465).value, {
     50: const Color(0xFFDC6465).withOpacity(.05),
@@ -37,7 +48,7 @@ class AppTheme {
   static Color scaffoldBackgroundColor = Color(0xffFFFFFF);
   static Color scaffoldBackgroundColor2 = Color(0xffF6F9FF);
 
-  static String fontFamily = 'Alhurra';
+  static String fontFamily = 'Roboto';
 
   static TextTheme textTheme = TextTheme(
     displayLarge: TextStyle(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';
+import 'package:shoppe_ui/core/AppTheme.dart';
 
 class AppStyles {
   static ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.primary,
+    backgroundColor: AppTheme.primary,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(27),
     ),
@@ -11,7 +11,7 @@ class AppStyles {
   );
 
   static ButtonStyle cancelButtonStyle = TextButton.styleFrom(
-    foregroundColor: AppColors.cancel,
+    foregroundColor: AppTheme.cancel,
     textStyle: const TextStyle(fontSize: 16),
   );
 }

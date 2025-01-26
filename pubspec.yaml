@@ -57,5 +57,11 @@ flutter:
     - assets/images/Login2.png
     - assets/images/Login3.png
     - assets/images/image.png
+    - assets/images/appp_icon.png
 
-
+  fonts:
+    - family: YourFont
+      fonts:
+        - asset: assets/fonts/Roboto-Italic-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/Roboto-VariableFont_wdth,wght.ttf
+          weight: 700

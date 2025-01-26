@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppe_ui/core/widgets/login_background_top.dart';
 import 'package:shoppe_ui/core/widgets/user_avatar_widget.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';
+import 'package:shoppe_ui/core/AppTheme.dart';
 import '../manager/wrong_password_bloc.dart';
 import '../manager/wrong_password_event.dart';
 import '../manager/wrong_password_state.dart';
@@ -13,7 +13,7 @@ class WrongPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: AppTheme.background,
       body: BlocProvider(
         create: (_) => WrongPasswordBloc(),
         child: BlocBuilder<WrongPasswordBloc, WrongPasswordState>(
@@ -40,7 +40,7 @@ class WrongPasswordScreen extends StatelessWidget {
                                 height: 17,
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.red,
+                                  color: AppTheme.error,
                                 ),
                               ),
                             ),
@@ -50,7 +50,7 @@ class WrongPasswordScreen extends StatelessWidget {
                         if (state.isLocked)
                           Text(
                             'Too many attempts! Try again later.',
-                            style: TextStyle(color: Colors.red, fontSize: 16),
+                            style: TextStyle(color: AppTheme.error, fontSize: 16),
                           )
                         else
                           GestureDetector(

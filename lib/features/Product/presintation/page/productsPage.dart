@@ -110,10 +110,7 @@ class _ProductPageState extends State<ProductPage> {
                 itemCount: state.productModel.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    name: state.productModel[index].name,
-                    reviews: state.productModel[index].reviews.toString(),
-                    price: state.productModel[index].price.toString(),
-                    image: state.productModel[index].image,
+                    productModel:  state.productModel[index],
                   );
                 },
               );

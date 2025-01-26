@@ -5,7 +5,7 @@ import '../manager/login_event.dart';
 import '../manager/login_state.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';
+import 'package:shoppe_ui/core/AppTheme.dart';
 import 'package:shoppe_ui/core/widgets/login_background_top.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginBloc(),
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: AppTheme.background,
         body: SafeArea(
           child: BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
@@ -41,19 +41,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // صورة ثابتة في الأسفل
-                Positioned(
-                  bottom: -100,
-                  right: -100,
-                  child: Container(
-                    width: 373.53,
-                    height: 442.65,
-                    child: Image.asset(
-                      'assets/images/Login4.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+
+
                 // Use SingleChildScrollView for the scrollable content
                 SingleChildScrollView(
                   child: Padding(
@@ -72,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                             const SizedBox(height: 8),
                             const Text(
                               'Good to see you back! 🖤',
-                              style: TextStyle(fontSize: 19, color: Colors.grey),
+                              style: TextStyle(fontSize: 19, color: AppTheme.cancel,),
                               textAlign: TextAlign.start, // Text alignment to the left
                             ),
                             const SizedBox(height: 40),
@@ -83,6 +72,8 @@ class LoginScreen extends StatelessWidget {
                               borderRadius: 20.0,
                               onChanged: (value) =>
                                   context.read<LoginBloc>().add(EmailChanged(value)),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                              prefixIcon: Icon(Icons.email, color: AppTheme.iconBlue),
                             ),
                             const SizedBox(height: 40),
                             CustomButton(
@@ -99,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                                   Navigator.pop(context);
                                 },
                                 style: TextButton.styleFrom(
-                                  foregroundColor: AppColors.cancel,
+                                  foregroundColor: AppTheme.cancel,
                                   textStyle: const TextStyle(fontSize: 16),
                                 ),
                                 child: const Text(

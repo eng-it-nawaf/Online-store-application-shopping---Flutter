@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';  // استيراد ملف الألوان
+import 'package:shoppe_ui/core/AppTheme.dart';
 import 'package:shoppe_ui/features/password/presintation/manager/password_bloc.dart';
 import '../manager/password_event.dart';
 import '../manager/password_state.dart';
@@ -15,13 +15,13 @@ class PasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width; // عرض الشاشة
-    final screenHeight = MediaQuery.of(context).size.height; // ارتفاع الشاشة
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return BlocProvider(
       create: (_) => PasswordBloc(),
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: AppTheme.background,
         body: SafeArea(
           child: BlocBuilder<PasswordBloc, PasswordState>(
             builder: (context, state) {
@@ -32,52 +32,51 @@ class PasswordScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const UserAvatarWidget(userName: "Romina"),
-                      SizedBox(height: screenHeight * 0.02), // مسافة نسبية
+                      SizedBox(height: screenHeight * 0.02),
                       _buildPasswordFields(context, screenWidth),
                       if (state.showError)
                         Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.02), // مسافة نسبية
+                          padding: EdgeInsets.only(top: screenHeight * 0.02),
                           child: Text(
                             "Incorrect password, try again!",
                             style: TextStyle(
-                              color: Colors.red,
-                              fontSize: screenWidth * 0.04, // حجم الخط نسبي
+                              color:AppTheme.error,
+                              fontSize: screenWidth * 0.04,
                             ),
                           ),
                         ),
                     ],
                   ),
-                  // وضع العناصر في أسفل الصفحة
                   Positioned(
-                    bottom: screenHeight * 0.05, // المسافة من الأسفل (نسبة مئوية)
+                    bottom: screenHeight * 0.05,
                     left: 0,
                     right: 0,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/wrongPassword'); // تنقل إلى شاشة Wrong Password
+                        Navigator.pushNamed(context, '/wrongPassword');
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center, // توسيط العناصر
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Wrong password?',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
-                              decoration: TextDecoration.none, // إزالة الخط السفلي
-                              fontSize: screenWidth * 0.04, // حجم الخط نسبي
+                              decoration: TextDecoration.none,
+                              fontSize: screenWidth * 0.04,
                             ),
                           ),
-                          SizedBox(width: screenWidth * 0.02), // مسافة نسبية
+                          SizedBox(width: screenWidth * 0.02),
                           Container(
-                            padding: EdgeInsets.all(screenWidth * 0.015), // تباعد داخلي نسبي
+                            padding: EdgeInsets.all(screenWidth * 0.015),
                             decoration: BoxDecoration(
-                              color: Colors.blue, // لون خلفية الدائرة
-                              shape: BoxShape.circle, // شكل دائري
+                              color: AppTheme.primaryColor,
+                              shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              Icons.arrow_forward, // رمز السهم
-                              color: Colors.white, // لون السهم
-                              size: screenWidth * 0.05, // حجم السهم نسبي
+                              Icons.arrow_forward,
+                              color:AppTheme.background,
+                              size: screenWidth * 0.05,
                             ),
                           ),
                         ],
@@ -111,11 +110,11 @@ class PasswordScreen extends StatelessWidget {
   Widget _buildPasswordField(
       TextEditingController controller, FocusNode currentFocus, FocusNode nextFocus, BuildContext context, double screenWidth) {
     return Container(
-      width: screenWidth * 0.12, // عرض الحقل نسبي
-      height: screenWidth * 0.12, // ارتفاع الحقل نسبي
-      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02), // مسافة أفقية نسبية
+      width: screenWidth * 0.12,
+      height: screenWidth * 0.12,
+      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: AppTheme.background,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
@@ -124,11 +123,11 @@ class PasswordScreen extends StatelessWidget {
         textAlign: TextAlign.center,
         obscureText: true,
         keyboardType: TextInputType.number,
-        style: TextStyle(fontSize: screenWidth * 0.05), // حجم الخط نسبي
+        style: TextStyle(fontSize: screenWidth * 0.05),
         maxLength: 1,
         decoration: const InputDecoration(
-          border: InputBorder.none, // إزالة الحدود
-          counterText: "", // إزالة عداد الأحرف
+          border: InputBorder.none,
+          counterText: "",
         ),
         onChanged: (value) {
           if (value.length == 1) {

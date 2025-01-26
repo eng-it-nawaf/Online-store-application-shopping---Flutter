@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppe_ui/features/create_account/data/viewmodels/create_account_viewmodel.dart';
 import '../widgets/account_form.dart';
-import 'package:shoppe_ui/core/constants/colors.dart';
+import 'package:shoppe_ui/core/AppTheme.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: AppTheme.background,
       body: Stack(
         children: [
           // إضافة الصور
@@ -44,3 +44,4 @@ class CreateAccountScreen extends StatelessWidget {
     );
   }
 }
+

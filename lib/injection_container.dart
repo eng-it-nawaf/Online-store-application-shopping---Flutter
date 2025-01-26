@@ -8,6 +8,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:shoppe_ui/features/Product/data/repository/ProductRepository.dart';
 import 'package:shoppe_ui/features/Product/presintation/manager/Product_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoppe_ui/features/ProductDeatils/presintation/manager/ProductDeatil_bloc.dart';
 import 'dataProviders/local_data_provider.dart';
 import 'dataProviders/network/Network_info.dart';
 import 'dataProviders/remote_data_provider.dart';
@@ -44,6 +45,7 @@ import 'package:shoppe_ui/features/Product/data/repository/ProductRepository.dar
 // import 'features/Statistics/presintation/manager/Statistics_bloc.dart';
 // import 'features/Stories/data/repository/StoriesRepository.dart';
 // import 'features/Stories/presintation/manager/Stories_bloc.dart';
+import 'features/ProductDeatils/data/repository/ProductDeatilRepository.dart';
 import 'main.dart';
 
 final sl = GetIt.instance;
@@ -71,6 +73,7 @@ Future<void> init() async {
   // _initCountryBoycott_blocFeature();
   // _initExtermination_blocFeature();
   _initProduct_blocFeature();
+  _initProductDetails_blocFeature();
   ///service provider
 
   //! Core
@@ -116,6 +119,20 @@ void _initCategories_blocFeature() {
   //repositories
   sl.registerLazySingleton<ProductRepository>(
         () => ProductRepository(
+      remoteDataProvider: sl(),
+      localDataProvider: sl(),
+      networkInfo: sl(),
+    ),
+  );
+}
+
+void _initProductDetails_blocFeature() {
+//bloc
+  sl.registerFactory(() => ProductDetailsBloc(repository: sl()));
+
+  //repositories
+  sl.registerLazySingleton<ProductDetailRepository>(
+        () => ProductDetailRepository(
       remoteDataProvider: sl(),
       localDataProvider: sl(),
       networkInfo: sl(),
