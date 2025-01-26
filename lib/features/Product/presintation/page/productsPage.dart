@@ -100,12 +100,12 @@ class _ProductPageState extends State<ProductPage> {
 
             if (state is ProductLoaded) {
               return GridView.builder(
-                padding: EdgeInsets.all(screenWidth * 0.02), // 2% من عرض الشاشة
+                padding: EdgeInsets.all(screenWidth * 0.02), 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenWidth > 600 ? 3 : 2, // 3 أعمدة للشاشات الكبيرة
-                  crossAxisSpacing: screenWidth * 0.02, // 2% من عرض الشاشة
-                  mainAxisSpacing: screenWidth * 0.02, // 2% من عرض الشاشة
-                  childAspectRatio: 0.75, // نسبة العرض إلى الارتفاع
+                  crossAxisCount: screenWidth > 600 ? 3 : 2, 
+                  crossAxisSpacing: screenWidth * 0.02, 
+                  mainAxisSpacing: screenWidth * 0.02,
+                  childAspectRatio: 0.75, 
                 ),
                 itemCount: state.productModel.length,
                 itemBuilder: (context, index) {
@@ -123,14 +123,14 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Icon(
                       Icons.error_outline,
-                      size: screenHeight * 0.1, // 10% من ارتفاع الشاشة
+                      size: screenHeight * 0.1, 
                       color: AppTheme.starColor,
                     ),
-                    SizedBox(height: screenHeight * 0.02), // 2% من ارتفاع الشاشة
+                    SizedBox(height: screenHeight * 0.02), 
                     Text(
                       "حدث خطأ أثناء تحميل البيانات",
                       style: TextStyle(
-                        fontSize: screenWidth * 0.04, // 4% من عرض الشاشة
+                        fontSize: screenWidth * 0.04, 
                         color: AppTheme.primarySwatch,
                       ),
                     ),
