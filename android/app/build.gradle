@@ -13,11 +13,12 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
+    ndkVersion "25.1.8937393"
     namespace = "com.example.shopphere"
     compileSdkVersion 34
     defaultConfig {
         applicationId = "com.Almumez.shopphere"
-        versionCode 3
+        versionCode 4
         versionName "1.1"
         minSdkVersion 21
         targetSdkVersion 34

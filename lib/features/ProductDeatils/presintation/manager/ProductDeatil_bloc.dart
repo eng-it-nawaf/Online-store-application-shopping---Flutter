@@ -13,7 +13,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
   final ProductDetailRepository repository;
 
   ProductDetailsBloc({required this.repository}) : super(ProductDetailsInitial()) {
-    // تسجيل معالج للحدث GetAllProductDetails
+
     on<GetAllProductDetails>((event, emit) async {
       emit(ProductDetailsLoading()); // إرسال حالة التحميل
       final failureOrData = await repository.getAllProductDeatils(event.id);

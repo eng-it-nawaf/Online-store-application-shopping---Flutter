@@ -1,3 +1,99 @@
+// import 'package:get_it/get_it.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shoppe_ui/features/Product/data/repository/HomeRepository.dart';
+// import 'package:shoppe_ui/features/Product/presintation/manager/Home_bloc.dart';
+// import 'package:shoppe_ui/features/ProductDeatils/data/repository/ProductDeatilRepository.dart';
+// import 'package:shoppe_ui/features/ProductDeatils/presintation/manager/ProductDeatil_bloc.dart';
+// import 'package:shoppe_ui/features/Registration/data/repository/RegistrationRepository.dart';
+// import 'package:shoppe_ui/features/Registration/presintation/manager/Registration_bloc.dart';
+// import 'dataProviders/local_data_provider.dart';
+// import 'dataProviders/network/Network_info.dart';
+// import 'dataProviders/remote_data_provider.dart';
+//
+// final sl = GetIt.instance;
+//
+// Future<void> init() async {
+//   print('Dependency Injection Initialization');
+//
+//   //! Core
+//   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+//
+//   //! External
+//   final sharedPreferences = await SharedPreferences.getInstance();
+//   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+//   sl.registerLazySingleton(() => http.Client());
+//   sl.registerLazySingleton(() => InternetConnection());
+//
+//   //! Features
+//   _initProductBlocFeature();
+//   _initProductDetailsBlocFeature();
+//   _initRegistrationBlocFeature();
+// }
+//
+// void _initProductBlocFeature() {
+//   // Bloc
+//   sl.registerFactory(() => ProductBloc(repository: sl()));
+//
+//   // Repository
+//   sl.registerLazySingleton<ProductRepository>(
+//         () => ProductRepository(
+//       remoteDataProvider: sl(),
+//       localDataProvider: sl(),
+//       networkInfo: sl(),
+//     ),
+//   );
+// }
+//
+// void _initProductDetailsBlocFeature() {
+//   // Bloc
+//   sl.registerFactory(() => ProductDetailsBloc(repository: sl()));
+//
+//   // Repository
+//   sl.registerLazySingleton<ProductDetailRepository>(
+//         () => ProductDetailRepository(
+//       remoteDataProvider: sl(),
+//       localDataProvider: sl(),
+//       networkInfo: sl(),
+//     ),
+//   );
+// }
+//
+// void _initRegistrationBlocFeature() {
+//   sl.registerFactory(() => RegistrationBloc(repository: sl()));
+//   sl.registerLazySingleton<RegistrationRepository>(
+//         () => RegistrationRepository(
+//       remoteDataProvider: sl(),
+//       localDataProvider: sl(),
+//       networkInfo: sl(),
+//     ),
+//   );
+// }
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +101,8 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:shoppe_ui/features/Home/data/repository/HomeRepository.dart';
+import 'package:shoppe_ui/features/Home/presintation/manager/Home_bloc.dart';
 import 'package:shoppe_ui/features/Product/data/repository/ProductRepository.dart';
 import 'package:shoppe_ui/features/Product/presintation/manager/Product_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,8 +112,6 @@ import 'dataProviders/network/Network_info.dart';
 import 'dataProviders/remote_data_provider.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shoppe_ui/features/Product/data/repository/ProductRepository.dart';
-
-
 // import 'features/Attacks/data/repository/AttackRepository.dart';
 // import 'features/Attacks/presintation/manager/Attack_bloc.dart';
 // import 'features/Boycott_Brands/data/repository/BrandRepository.dart';
@@ -46,6 +142,8 @@ import 'package:shoppe_ui/features/Product/data/repository/ProductRepository.dar
 // import 'features/Stories/data/repository/StoriesRepository.dart';
 // import 'features/Stories/presintation/manager/Stories_bloc.dart';
 import 'features/ProductDeatils/data/repository/ProductDeatilRepository.dart';
+import 'features/Registration/data/repository/RegistrationRepository.dart';
+import 'features/Registration/presintation/manager/Registration_bloc.dart';
 import 'main.dart';
 
 final sl = GetIt.instance;
@@ -54,7 +152,6 @@ Future<void> init() async {
 
 //  ! Features
 //   _initRegisterFeature();
-
   // client = await getSSLPinningClient();
   // _initCountry_blocFeature();
   // initNotification();
@@ -69,18 +166,17 @@ Future<void> init() async {
   // //checkForUpdates();
   // _initStories_blocFeature();
   // _initDonations_blocFeature();
-  // _initHome_blocFeature();
   // _initCountryBoycott_blocFeature();
   // _initExtermination_blocFeature();
+  _initHome_blocFeature();
   _initProduct_blocFeature();
   _initProductDetails_blocFeature();
-  ///service provider
+  _initRegistration_blocFeature();
+  // _initCategories_blocFeature();
 
-  //! Core
+
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
-  //data providers
 
-  // data sources
   sl.registerLazySingleton<RemoteDataProvider>(
           () => RemoteDataProvider(client: sl()));
 
@@ -88,8 +184,6 @@ Future<void> init() async {
       () => LocalDataProvider(sharedPreferences: sl()));
 
 
-
-  //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
@@ -98,10 +192,8 @@ Future<void> init() async {
 }
 
 void _initProduct_blocFeature() {
-//bloc
   sl.registerFactory(() => ProductBloc(repository: sl()));
 
-  //repositories
   sl.registerLazySingleton<ProductRepository>(
     () => ProductRepository(
       remoteDataProvider: sl(),
@@ -111,12 +203,33 @@ void _initProduct_blocFeature() {
   );
 }
 
+void _initHome_blocFeature() {
+  sl.registerFactory(() => HomeBloc(repository: sl()));
+
+  sl.registerLazySingleton<HomeRepository>(
+        () => HomeRepository(
+      remoteDataProvider: sl(),
+      localDataProvider: sl(),
+      networkInfo: sl(),
+    ),
+  );
+}
+
+void _initRegistration_blocFeature() {
+  sl.registerFactory(() => RegistrationBloc(repository: sl()));
+
+  sl.registerLazySingleton<RegistrationRepository>(
+        () => RegistrationRepository(
+      remoteDataProvider: sl(),
+      localDataProvider: sl(),
+      networkInfo: sl(),
+    ),
+  );
+}
 
 void _initCategories_blocFeature() {
-//bloc
   sl.registerFactory(() => ProductBloc(repository: sl()));
 
-  //repositories
   sl.registerLazySingleton<ProductRepository>(
         () => ProductRepository(
       remoteDataProvider: sl(),
@@ -127,10 +240,8 @@ void _initCategories_blocFeature() {
 }
 
 void _initProductDetails_blocFeature() {
-//bloc
   sl.registerFactory(() => ProductDetailsBloc(repository: sl()));
 
-  //repositories
   sl.registerLazySingleton<ProductDetailRepository>(
         () => ProductDetailRepository(
       remoteDataProvider: sl(),
@@ -139,6 +250,9 @@ void _initProductDetails_blocFeature() {
     ),
   );
 }
+
+
+
 
 //
 // void _initBrand_blocFeature() {
@@ -451,5 +565,6 @@ void _initProductDetails_blocFeature() {
 //   IOClient ioClient = IOClient(client);
 //   return ioClient;
 // }
+
 
 

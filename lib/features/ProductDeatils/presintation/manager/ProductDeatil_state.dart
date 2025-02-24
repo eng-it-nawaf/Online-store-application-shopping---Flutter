@@ -15,7 +15,7 @@ class ProductDetailsLoading extends ProductDetailsState {
 }
 
 class ProductDetailsLoaded extends ProductDetailsState {
-  final ProductDetailsModel productDetailsModel; // تم تصحيح اسم الفئة
+  final ProductDetailsModel productDetailsModel;
   ProductDetailsLoaded({required this.productDetailsModel});
 
   @override

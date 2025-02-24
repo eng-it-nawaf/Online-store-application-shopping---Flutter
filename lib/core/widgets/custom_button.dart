@@ -1,87 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoppe_ui/core/AppTheme.dart';
-
-// class CustomButton extends StatelessWidget {
-//   final String text;
-//   final VoidCallback? onPressed;
-//
-//   const CustomButton({
-//     required this.text,
-//     this.onPressed,
-//
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center( // Center widget to align the button horizontally and vertically
-//       child: Opacity(
-//         opacity: onPressed != null ? 1.0 : 0.6,
-//         child: SizedBox(
-//           width: 335,
-//           height: 61,
-//           child: ElevatedButton(
-//             onPressed: onPressed,
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor: AppTheme.priceColor,
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//               ),
-//             ),
-//             child: Text(
-//               text,
-//               style: const TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.white,
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+import 'package:shoppe_ui/core/ThemeProvider.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback? onPressed;
-  final Color backgroundColor; // لون الخلفية
-  final Color textColor; // لون النص
+  final VoidCallback onPressed;
 
   const CustomButton({
-    required this.text,
-    this.onPressed,
-    this.backgroundColor = AppTheme.priceColor, // قيمة افتراضية
-    this.textColor = AppTheme.background,
     Key? key,
+    required this.text,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Opacity(
-        opacity: onPressed != null ? 1.0 : 0.6,
-        child: SizedBox(
-          width: 335,
-          height: 61,
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: backgroundColor, // استخدام لون الخلفية المخصص
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: textColor, // استخدام لون النص المخصص
-              ),
-            ),
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: const LinearGradient(
+          colors: [AppTheme.appBarColor, AppTheme.primary],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 90),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            color: themeProvider.isDarkMode ? AppTheme.secondaryColor : AppTheme.secondaryColor,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

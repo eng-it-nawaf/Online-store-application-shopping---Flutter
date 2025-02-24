@@ -1,9 +1,9 @@
 name: shoppe_ui
 description: "A new Flutter project."
 
-publish_to: 'none' # Prevents accidental publication
+publish_to: 'none'
 
-version: 1.0.0+3
+version: 1.0.0+4
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -13,15 +13,24 @@ dependencies:
     sdk: flutter
   provider:
   bloc:
+  get:
   flutter_bloc:
   font_awesome_flutter:
   fluttertoast:
+  awesome_dialog:
+  motion_toast:
+  lottie:
   image_picker:
   intl_phone_number_input:
   sliding_clipped_nav_bar:
-  flutter_svg:
+  flutter_svg: ^2.0.4
   cupertino_icons:
   shared_preferences:
+  flutter_animate:
+  google_fonts:
+  introduction_screen:
+  skeleton_loader:
+  search_app_bar_page:
   wave:
   http:
   dartz:
@@ -30,34 +39,51 @@ dependencies:
   internet_connection_checker_plus:
   connectivity_plus:
   convex_bottom_bar:
-
-flutter_svg: ^2.0.4 # For SVG image support
+  carousel_slider:
+  flutter_local_notifications:
+  google_sign_in:
+  page_transition:
+  flutter_native_splash:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons:
   flutter_lints:
+  flutter_native_splash:
+  flutter_launcher_icons: ^0.13.1
 
-flutter_icons:
-  android: true
-  ios: false  # إذا كنت لا تحتاج لدعم iOS على Windows
-  image_path: "assets/app_icon/app_icon.png"  # مسار الأيقونة
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/app_icon/icon.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#0xFF5F53D9"  # لون الخلفية
+#  image: assets/images/branding-development.png  # مسار الصورة
+#  android_gravity: center  # محاذاة الصورة إلى المنتصف
+  android: true  # تفعيل الشاشة التمهيدية لنظام Android
+  branding:  # إضافة شعار أو نص إضافي
+    android: assets/images/branding-development.png
+  fullscreen: true  # جعل الشاشة التمهيدية كاملة (بدون شريط الحالة)
 
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/user_avatar.png
-    - assets/images/bubble 02 (1).png
-    - assets/images/bubble 02.png
-    - assets/images/bubble 01.png
-    - assets/images/Login1.png
-    - assets/images/Login4.png
-    - assets/images/Login2.png
-    - assets/images/Login3.png
-    - assets/images/image.png
-    - assets/images/appp_icon.png
+#    - assets/images/user_avatar.png
+#    - assets/images/bubble 02 (1).png
+#    - assets/images/bubble 02.png
+#    - assets/images/bubble 01.png
+#    - assets/images/Login1.png
+#    - assets/images/Login4.png
+#    - assets/images/Login2.png
+#    - assets/images/Login3.png
+#    - assets/images/image.png
+#    - assets/images/appp_icon.png
+    - assets/animations/signup_animation.json
+    - assets/animations/loading_animation.json
+    - assets/animations/
 
   fonts:
     - family: YourFont

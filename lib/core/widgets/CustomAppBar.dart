@@ -4,11 +4,13 @@ import 'package:shoppe_ui/core/AppTheme.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
+  final Color backgroundColor;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.actions,
+    this.backgroundColor = AppTheme.primary,
   });
 
   @override
@@ -17,11 +19,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
+          fontSize: 18,
           color: AppTheme.secondaryColor,
           fontWeight: FontWeight.bold,
         ),
       ),
-      backgroundColor: AppTheme.priceColor,
+      backgroundColor: backgroundColor,
       elevation: 10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -29,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: actions,
-      iconTheme: IconThemeData(color: AppTheme.secondaryColor,),
+      iconTheme: IconThemeData(color: AppTheme.secondaryColor),
     );
   }
 

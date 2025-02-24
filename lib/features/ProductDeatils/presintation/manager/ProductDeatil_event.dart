@@ -7,7 +7,7 @@ abstract class ProductDetailsEvent extends Equatable {
 class GetAllProductDetails extends ProductDetailsEvent {
   final String id;
   @override
-  List<Object> get props => [id]; // تضمين `id` في props للتحقق من المساواة
+  List<Object> get props => [id];
   const GetAllProductDetails({required this.id});
 }
 

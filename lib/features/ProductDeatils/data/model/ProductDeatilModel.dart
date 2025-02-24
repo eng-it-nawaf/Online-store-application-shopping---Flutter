@@ -1,5 +1,5 @@
 class ProductDetailsModel {
-  dynamic id, price, image, name, description, category, rating, reviews , inStock;
+  dynamic id, price, image, name, description, category, rating, reviews , inStock, sizes;
 
   ProductDetailsModel({
     required this.id,
@@ -11,6 +11,7 @@ class ProductDetailsModel {
     required this.rating,
     required this.image,
     required this.inStock,
+    required this.sizes,
   });
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> product) {
@@ -24,6 +25,7 @@ class ProductDetailsModel {
       category: product['category'],
       rating: product['rating'],
       inStock: product['inStock'],
+      sizes: product['sizes'],
     );
   }
 
@@ -42,6 +44,7 @@ class ProductDetailsModel {
       rating: '',
       image: '',
       inStock: '',
+      sizes: '',
     );
   }
 
@@ -62,5 +65,6 @@ class ProductDetailsModel {
     'description': description,
     'image': image,
     'inStock': inStock,
+    'sizes': sizes,
   };
 }

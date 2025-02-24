@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-
 class AppTheme {
-
-
-  ///colors
-  static const Color priceColor = Color.fromRGBO(96, 85, 216, 1);
-  static const Color textColor = Color.fromRGBO(0, 0, 0, 1);
-  static const Color starColor = Color(0xFFFAB70F);
-  static const Color primary = Color(0xFF007AFF);
-  static const Color background = Colors.white;
-  static const Color textSecondary = Colors.grey;
+  /// Colors
+  static const Color primary = Color(0xFF5F53D9);
+  static Color? textSecondary = Colors.grey[900];
   static const Color error = Color(0xFFFF0000);
   static const Color cancel = Color.fromRGBO(32, 31, 40, 1);
   static const Color iconBlue = Color(0xFF004CFD);
-  static const Color primaryColor = Color(0xFF6200EE);
+  static const Color primaryColor = Color(0xFF0288D1); // برتقالي دافئ
+  static const Color secondaryColor = Color(0xFFF8F8F8); // خلفية ناعمة (رمادي فاتح)
+  static const Color textColor = Color(0xFF0C0808); // نص داكن
+  static const Color priceColor = Color(0xFF388E3C); // أخضر داكن للسعر
+  static const Color starColor = Color(0xFFFFD54F); // أصفر للتقييمات
+  static const Color iconColor = Color(0xFF757575); // أيقونات غير محددة (رمادي)
+  static const Color appBarColor = Color(0xFF1A237E); // شريط التطبيقات (أزرق داكن)
+  static const Color buttonColor = Color(0xFF0288D1); // زر اللون الأزرق الفاتح
+  static const Color backgroundColor = Color(0xFFF3F4F6); // خلفية عامة (رمادي فاتح)
 
-
-
-  static MaterialColor primarySwatch = MaterialColor(Color(0xFFDC6465).value, {
+  static MaterialColor primaarySwatch = MaterialColor(Color(0xFFDC6465).value, {
     50: const Color(0xFFDC6465).withOpacity(.05),
     100: const Color(0xFFDC6465).withOpacity(.1),
     200: const Color(0xFFDC6465).withOpacity(.2),
@@ -31,7 +30,6 @@ class AppTheme {
     900: const Color(0xFFDC6465).withOpacity(.9)
   });
 
-  static const Color secondaryColor = Color(0xFFFFFFFF);
   static MaterialColor secondarySwitch = MaterialColor(Color(0xFFFFFFFF).value, {
     50: const Color(0xFFFFFFFF).withOpacity(.05),
     100: const Color(0xFFFFFFFF).withOpacity(.1),
@@ -90,6 +88,50 @@ class AppTheme {
       fontSize: 20.0,
       fontFamily: fontFamily,
       color: Colors.white,
+    ),
+  );
+
+  /// تعريف الثيمات
+  static final ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: primary,
+    colorScheme: ColorScheme.light(
+      primary: primary,
+      secondary: secondaryColor,
+      background: backgroundColor,
+    ),
+    scaffoldBackgroundColor: scaffoldBackgroundColor,
+    textTheme: textTheme,
+    appBarTheme: AppBarTheme(
+      color: appBarColor,
+      titleTextStyle: textTheme.titleLarge,
+    ),
+    buttonTheme: ButtonThemeData(
+      buttonColor: buttonColor,
+      textTheme: ButtonTextTheme.primary,
+    ),
+  );
+
+  static final ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: primary,
+    colorScheme: ColorScheme.dark(
+      primary: primary,
+      secondary: secondaryColor,
+      background: Colors.black,
+    ),
+    scaffoldBackgroundColor: Colors.black,
+    textTheme: textTheme.copyWith(
+      bodyLarge: textTheme.bodyLarge!.copyWith(color: Colors.white),
+      bodyMedium: textTheme.bodyMedium!.copyWith(color: Colors.white),
+    ),
+    appBarTheme: AppBarTheme(
+      color: appBarColor,
+      titleTextStyle: textTheme.titleLarge,
+    ),
+    buttonTheme: ButtonThemeData(
+      buttonColor: buttonColor,
+      textTheme: ButtonTextTheme.primary,
     ),
   );
 }

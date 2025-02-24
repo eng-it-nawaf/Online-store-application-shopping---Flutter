@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppe_ui/core/utils/ScreenUtil.dart';
 import 'package:shoppe_ui/core/widgets/CustomAppBar.dart';
 import 'package:shoppe_ui/features/Product/presintation/Widget/BottomNavigation.dart';
-import 'package:shoppe_ui/features/Product/presintation/page/ProductSearch.dart';
 import '../../../../injection_container.dart';
 import '../Widget/ProductCard.dart';
 import '../manager/Product_bloc.dart';
 import 'package:shoppe_ui/core/AppTheme.dart';
-import 'package:shoppe_ui/features/Product/data/model/ProductModel.dart';
 
 class ProductPage extends StatefulWidget {
   ProductPage({super.key});
@@ -19,12 +17,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   late ScrollController _scrollController;
-  List<Map<String, dynamic>> filterList = [
-    {"name": "الدول المناصرة للقضية", "id": 4},
-    {"name": "الدول الداعمة للقضية", "id": 3},
-    {"name": "الدول الداعمة للاحتلال", "id": 2},
-    {"name": "الدول المحايدة", "id": 1},
-  ];
+  List<Map<String, dynamic>> filterList = [];
 
   int itemIsSelected = 0;
   String valueInput = "";
@@ -48,29 +41,10 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: AppTheme.secondaryColor,
+      backgroundColor: AppTheme.backgroundColor,
       appBar: CustomAppBar(
-        title: "Product",
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: AppTheme.secondaryColor),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: ProductSearchDelegate(
-                  products: context.read<ProductBloc>().state is ProductLoaded
-                      ? (context.read<ProductBloc>().state as ProductLoaded)
-                      .productModel
-                      : [],
-                ),
-              );
-            },
-          ),
-        ],
+        title: " المنتجــات",
       ),
       body: BlocProvider(
         create: (context) => sl<ProductBloc>(),
@@ -79,8 +53,13 @@ class _ProductPageState extends State<ProductPage> {
             if (state is ProductError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(state.errorMessage),
-                  backgroundColor: AppTheme.priceColor,
+                  content: Text(
+                    state.errorMessage,
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(16),
+                    ),
+                  ),
+                  backgroundColor: AppTheme.primaryColor,
                 ),
               );
             }
@@ -100,17 +79,17 @@ class _ProductPageState extends State<ProductPage> {
 
             if (state is ProductLoaded) {
               return GridView.builder(
-                padding: EdgeInsets.all(screenWidth * 0.02), 
+                padding: EdgeInsets.all(screenUtil.setWidth(10)), // padding
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenWidth > 600 ? 3 : 2, 
-                  crossAxisSpacing: screenWidth * 0.02, 
-                  mainAxisSpacing: screenWidth * 0.02,
-                  childAspectRatio: 0.75, 
+                  crossAxisCount: screenUtil.screenWidth > 600 ? 3 : 2,
+                  crossAxisSpacing: screenUtil.setWidth(10),
+                  mainAxisSpacing: screenUtil.setWidth(10),
+                  childAspectRatio: 0.75,
                 ),
                 itemCount: state.productModel.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    productModel:  state.productModel[index],
+                    productModel: state.productModel[index],
                   );
                 },
               );
@@ -123,15 +102,14 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Icon(
                       Icons.error_outline,
-                      size: screenHeight * 0.1, 
+                      size: screenUtil.setHeight(100),
                       color: AppTheme.starColor,
                     ),
-                    SizedBox(height: screenHeight * 0.02), 
+                    SizedBox(height: screenUtil.setHeight(20)),
                     Text(
                       "حدث خطأ أثناء تحميل البيانات",
                       style: TextStyle(
-                        fontSize: screenWidth * 0.04, 
-                        color: AppTheme.primarySwatch,
+                        fontSize: screenUtil.setSp(18),
                       ),
                     ),
                   ],
@@ -147,5 +125,3 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
-
-

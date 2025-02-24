@@ -5,7 +5,6 @@ import '../../../../injection_container.dart';
 import '../manager/ProductDeatil_bloc.dart';
 import 'package:shoppe_ui/core/AppTheme.dart';
 
-
 class ProductDetailsPage extends StatefulWidget {
   final String id;
   ProductDetailsPage({super.key, required this.id});
@@ -15,232 +14,155 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  ScrollController _scrollController = ScrollController();
   ScreenUtil screenUtil = ScreenUtil();
   bool isFavorite = false;
+  String? selectedSize;
 
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Scaffold(
-      backgroundColor: AppTheme.secondaryColor,
+      backgroundColor: AppTheme.backgroundColor,
       body: BlocProvider(
-        create: (context) => sl<ProductDetailsBloc>(),
-        child: BlocConsumer<ProductDetailsBloc, ProductDetailsState>(
-          listener: (context, state) {
-            if (state is ProductDetailsError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
-              );
-            }
-          },
+        create: (context) => sl<ProductDetailsBloc>()..add(GetAllProductDetails(id: widget.id)),
+        child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
           builder: (context, state) {
-            if (state is ProductDetailsInitial) {
-              BlocProvider.of<ProductDetailsBloc>(context)
-                  .add(GetAllProductDetails(id: widget.id));
-            }
-
             if (state is ProductDetailsLoading) {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator(color: AppTheme.primaryColor));
             }
 
             if (state is ProductDetailsLoaded) {
-              return _buildProductDetails(state);
-            }
+              return Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: screenUtil.screenHeight * 0.4,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(state.productDetailsModel.image),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 40,
+                        left: 16,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back, color: AppTheme.backgroundColor),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                      Positioned(
+                        top: 40,
+                        right: 16,
+                        child: IconButton(
+                          icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border, color:AppTheme.error),
+                          onPressed: () => setState(() => isFavorite = !isFavorite),
+                        ),
+                      ),
+                    ],
+                  ),
 
-            return Container();
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(state.productDetailsModel.name, style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppTheme.textSecondary)),
+                          SizedBox(height: 10),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('\$${state.productDetailsModel.price}', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppTheme.priceColor)),
+                              Row(
+                                children: [
+                                  _buildRatingStars(state.productDetailsModel.rating),
+                                  SizedBox(width: 5),
+                                  Text('(${state.productDetailsModel.reviews} reviews)', style: TextStyle(fontSize: 16, color: AppTheme.textSecondary)),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+
+                          Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.textSecondary)),
+                          SizedBox(height: 8),
+                          Text(state.productDetailsModel.description, style: TextStyle(fontSize: 16, color: AppTheme.buttonColor)),
+
+                          SizedBox(height: 10),
+
+                          Text('Category: ${state.productDetailsModel.category}', style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: AppTheme.buttonColor)),
+                          SizedBox(height: 16),
+
+                          Text('Select Size:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.textSecondary)),
+                          SizedBox(height: 10),
+                          Wrap(
+                            spacing: 10,
+                            children: state.productDetailsModel.sizes.map<Widget>((size) {
+                              return ChoiceChip(
+                                label: Text(size, style: TextStyle(fontSize: 16)),
+                                selected: selectedSize == size,
+                                onSelected: (isSelected) {
+                                  setState(() => selectedSize = isSelected ? size : null);
+                                },
+                                selectedColor: AppTheme.primaryColor,
+                                labelStyle: TextStyle(color: selectedSize == size ? AppTheme.backgroundColor : AppTheme.primary),
+                                backgroundColor: AppTheme.backgroundColor,
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return Center(child: Text('Error loading product details'));
           },
+        ),
+      ),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () {
+            if (selectedSize == null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please select a size')));
+            } else {
+              print('Added to cart: ${selectedSize}');
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.primaryColor,
+            padding: EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+          child: Text('Buy Now', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.backgroundColor)),
         ),
       ),
     );
   }
 
-  Widget _buildProductDetails(ProductDetailsLoaded state) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: screenUtil.screenHeight * 0.45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(state.productDetailsModel.image),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 40,
-                left: 16,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppTheme.secondaryColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Icon(Icons.arrow_back, color: AppTheme.textColor,),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  state.productDetailsModel.name,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.textColor,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text(
-                      '\$${state.productDetailsModel.price}',
-                      style: TextStyle(
-                        fontSize: 26,
-                        color: AppTheme.priceColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: AppTheme.starColor, size: 24),
-                        SizedBox(width: 5),
-                        Text(
-                          '${state.productDetailsModel.rating}',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          ' (${state.productDetailsModel.reviews} reviews)',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppTheme.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text(
-                  state.productDetailsModel.description,
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    color: Colors.grey[800],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Category: ${state.productDetailsModel.category}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[700],
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // إضافة المنتج إلى السلة
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primaryColor,
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.shopping_cart, color: AppTheme.secondaryColor),
-                        SizedBox(width: 10),
-                        Text(
-                          'Add to Cart',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: AppTheme.secondaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: isFavorite ? AppTheme.primarySwatch  : AppTheme.secondaryColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.favorite,
-                      color: isFavorite ? Colors.white : Colors.grey[700],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+  Widget _buildRatingStars(double rating) {
+    int fullStars = rating.floor();
+    bool hasHalfStar = (rating - fullStars) >= 0.5;
+
+    return Row(
+      children: List.generate(5, (index) {
+        if (index < fullStars) {
+          return Icon(Icons.star, color: AppTheme.starColor, size: 22);
+        } else if (hasHalfStar && index == fullStars) {
+          return Icon(Icons.star_half, color: AppTheme.starColor, size: 22);
+        } else {
+          return Icon(Icons.star_border, color: AppTheme.starColor, size: 22);
+        }
+      }),
     );
   }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 }
+

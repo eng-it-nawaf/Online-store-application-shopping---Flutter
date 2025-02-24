@@ -1,11 +1,99 @@
+// import 'package:equatable/equatable.dart';
+//
+// abstract class Failure extends Equatable {
+//   Failure([List properties = const <dynamic>[]]);
+// }
+//
+// // general failures
+//
+// class NotFoundFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class ServerFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class NotAvailableFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class BlockedUserFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class ValidationFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class ConnectionFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class CacheFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class NotFounFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class BarcodeNotFoundFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// class AiFailure extends Failure {
+//   @override
+//   List<Object?> get props => [];
+// }
+//
+// String mapFailureToMessage(Failure failure) {
+//   switch (failure.runtimeType) {
+//     case ServerFailure:
+//       return 'عذراً لم نتمكن من الاتصال بالخادم';
+//     case NotFoundFailure:
+//       return 'لاتوجد أي بيانات في الوقت الحالي!';
+//
+//     case BlockedUserFailure:
+//       return 'عذرا ! لقد تم حظر حسابك. يرجى التواصل مع المسؤول لإزالة الحظر';
+//     case NotAvailableFailure:
+//       return 'هذا الطلب غير متاح ';
+//     case ValidationFailure:
+//       return 'البيانات التي ادخلتها غير صحيحه ';
+//     case ConnectionFailure:
+//       return 'لا يوجد اتصال بالانترنت ';
+//     case NotFounFailure:
+//       return 'البيانات غير موجودة ';
+//     case CacheFailure:
+//       return 'لا يوجد بيانات بالتخزين المؤقت ';
+//     case BarcodeNotFoundFailure:
+//       return 'الباركود غير موجودة ';
+//     case BarcodeNotFoundFailure:
+//       return 'الباركود غير موجودة ';
+//     case AiFailure:
+//       return 'لم يتم التعرف على المنتج';
+//     default:
+//       return 'عذراً حدث خطأ غير متوقع';
+//   }
+// }
+
 import 'package:equatable/equatable.dart';
+import 'package:shoppe_ui/core/utils/error_messages.dart';
 
 abstract class Failure extends Equatable {
   Failure([List properties = const <dynamic>[]]);
 }
 
 // general failures
-
 class NotFoundFailure extends Failure {
   @override
   List<Object?> get props => [];
@@ -59,29 +147,26 @@ class AiFailure extends Failure {
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
-      return 'عذراً لم نتمكن من الاتصال بالخادم';
+      return ErrorMessages.serverFailure;
     case NotFoundFailure:
-      return 'لاتوجد أي بيانات في الوقت الحالي!';
-
+      return ErrorMessages.notFoundFailure;
     case BlockedUserFailure:
-      return 'عذرا ! لقد تم حظر حسابك. يرجى التواصل مع المسؤول لإزالة الحظر';
+      return ErrorMessages.blockedUserFailure;
     case NotAvailableFailure:
-      return 'هذا الطلب غير متاح ';
+      return ErrorMessages.notAvailableFailure;
     case ValidationFailure:
-      return 'البيانات التي ادخلتها غير صحيحه ';
+      return ErrorMessages.validationFailure;
     case ConnectionFailure:
-      return 'لا يوجد اتصال بالانترنت ';
-    case NotFounFailure:
-      return 'البيانات غير موجودة ';
+      return ErrorMessages.connectionFailure;
     case CacheFailure:
-      return 'لا يوجد بيانات بالتخزين المؤقت ';
+      return ErrorMessages.cacheFailure;
+    case NotFoundFailure:
+      return ErrorMessages.notFoundError;
     case BarcodeNotFoundFailure:
-      return 'الباركود غير موجودة ';
-    case BarcodeNotFoundFailure:
-      return 'الباركود غير موجودة ';
+      return ErrorMessages.barcodeNotFoundFailure;
     case AiFailure:
-      return 'لم يتم التعرف على المنتج';
+      return ErrorMessages.aiFailure;
     default:
-      return 'عذراً حدث خطأ غير متوقع';
+      return ErrorMessages.unexpectedError;
   }
 }
